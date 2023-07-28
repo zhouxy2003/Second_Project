@@ -13,7 +13,9 @@
       </div>
       <el-container>
         <!--  侧边    -->
-        <el-aside>侧边</el-aside>
+        <el-aside>
+          <apiMangerAside></apiMangerAside>
+        </el-aside>
         <!--  中间    -->
         <el-main>内容</el-main>
       </el-container>
@@ -27,7 +29,12 @@
 import MyHeader from "@/components/MyHeader.vue";
 // 引入导航栏组件
 import NavigationBar from "@/components/NavigationBar.vue";
+//引入登录界面组件
 import adminLogin from "@/components/adminLogin.vue";
+
+//管理左边
+import apiMangerAside from "@/components/apiMangerAside.vue";
+
 export default {
   name: 'App',
   data() {
@@ -37,7 +44,7 @@ export default {
     };
   },
   components: {
-    MyHeader,NavigationBar,adminLogin
+    MyHeader,NavigationBar,adminLogin,apiMangerAside
   },
   methods:{
     updateDone(newDone){
@@ -64,10 +71,9 @@ export default {
   width: 100%;
 }
 .el-aside {
-  background-color: #D3DCE6;
+  background-color: #f8f8f8;
   color: #333;
-  text-align: center;
-  line-height: 200px;
+  width: 100px;
   height: 800px;
 }
 

@@ -80,6 +80,7 @@ export default {
   },
  methods:{
     showData(){
+      //this.account===this.user_name&&this.password===this.user_password
      if(this.account===this.user_name&&this.password===this.user_password){
        this.$emit('change-done', true);
        console.log("欢迎登录")
