@@ -1,7 +1,8 @@
 <template>
   <div id="app">
+    <admin-login  v-if="sin_in" @change-done="updateDone"></admin-login>
     <!-- 布局容器   -->
-    <el-container>
+    <el-container v-if="isShow">
       <!--  头部    -->
       <el-header>
         <MyHeader></MyHeader>
@@ -21,16 +22,30 @@
 </template>
 
 <script>
+
 // 引入头部组件
 import MyHeader from "@/components/MyHeader.vue";
 // 引入导航栏组件
 import NavigationBar from "@/components/NavigationBar.vue";
-
+import adminLogin from "@/components/adminLogin.vue";
 export default {
   name: 'App',
+  data() {
+    return {
+      isShow: false,
+      sin_in:true
+    };
+  },
   components: {
-    MyHeader,NavigationBar
+    MyHeader,NavigationBar,adminLogin
+  },
+  methods:{
+    updateDone(newDone){
+      this.isShow=newDone
+      this.sin_in=false
+    }
   }
+
 }
 </script>
 
