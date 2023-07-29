@@ -14,10 +14,12 @@
       <el-container>
         <!--  侧边    -->
         <el-aside>
-          <apiMangerAside></apiMangerAside>
+          <apiMangerAside :testArr="testArr"></apiMangerAside>
         </el-aside>
         <!--  中间    -->
-        <el-main>内容</el-main>
+        <el-main>
+          <apiMangerMain  :testArr="testArr"></apiMangerMain>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -34,17 +36,25 @@ import adminLogin from "@/components/adminLogin.vue";
 
 //管理左边
 import apiMangerAside from "@/components/apiMangerAside.vue";
+import apiMangerMain from "@/components/apiMangerMain.vue";
 
 export default {
   name: 'App',
   data() {
     return {
       isShow: false,
-      sin_in:true
+      sin_in:true,
+      //接口信息
+      testArr:[
+        {id:1,name:'天气接口',api:'https://apiTest.cn',done:false,method:'GET'},
+        {id:2,name:'交通接口',api:'https://apiTest.cn',done:true,method:'GET'},
+        {id:3,name:'教育接口',api:'https://apiTest.cn',done:true,method:'GET'},
+      ],
+
     };
   },
   components: {
-    MyHeader,NavigationBar,adminLogin,apiMangerAside
+    MyHeader,NavigationBar,adminLogin,apiMangerAside,apiMangerMain
   },
   methods:{
     updateDone(newDone){
@@ -71,7 +81,7 @@ export default {
   width: 100%;
 }
 .el-aside {
-  background-color: #f8f8f8;
+  background-color: #D3DCE6;
   color: #333;
   width: 100px;
   height: 800px;
@@ -81,7 +91,6 @@ export default {
   background-color: #E9EEF3;
   color: #333;
   text-align: center;
-  line-height: 160px;
 }
 
 </style>

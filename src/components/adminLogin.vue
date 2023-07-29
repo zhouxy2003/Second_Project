@@ -141,6 +141,7 @@ export default {
 
 .title {
   margin: 0;
+  text-align: center;
   font-size: 1.25rem;
   font-weight: 700;
   color: #212121;
