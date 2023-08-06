@@ -39,7 +39,7 @@ export default {
   },
   computed:{
     doneFinish(){
-      return this.testArr.reduce((total,item)=> total+(item.done?1:0),0)
+      return this.testArr.reduce((total,item)=> total+(item.done==="true"?1:0),0)
     }
   }
 }

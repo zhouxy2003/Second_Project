@@ -1,10 +1,8 @@
 <template>
   <div id="app">
-    <!-- <admin-login  v-if="sin_in" @change-done="updateDone"></admin-login> -->
-    <admin-login v-if="false" @change-done="updateDone"></admin-login>
+    <admin-login v-if="sin_in" @change-done="updateDone"></admin-login>
     <!-- 布局容器   -->
-    <el-container v-if="true">
-      <!-- <el-container v-if="isShow"> -->
+    <el-container v-if="isShow">
       <!--  头部    -->
       <el-header>
         <MyHeader></MyHeader>
@@ -41,6 +39,7 @@ import apiMangerMain from "@/components/apiMangerMain.vue";
 
 // 使用事件总线
 import Bus from "@/Bus";
+
 export default {
   name: "App",
   data() {
@@ -53,21 +52,21 @@ export default {
           id: 1,
           name: "天气接口",
           api: "https://apiTest.cn",
-          done: false,
+          done: "false",
           method: "GET",
         },
         {
           id: 2,
           name: "交通接口",
           api: "https://apiTest.cn",
-          done: true,
+          done: "true",
           method: "GET",
         },
         {
           id: 3,
           name: "教育接口",
           api: "https://apiTest.cn",
-          done: true,
+          done: "true",
           method: "GET",
         },
       ],
@@ -89,7 +88,7 @@ export default {
   created() {
     // 监听自定义事件，并处理传递的数据
     Bus.$on("uploadForm", (formData) => {
-      const copiedForm = { ...formData }; // 使用展开运算符创建一个新的对象副本
+      const copiedForm = {...formData}; // 使用展开运算符创建一个新的对象副本
       this.testArr.push(copiedForm);
     });
   },
@@ -101,14 +100,17 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 .el-header {
   background-color: whitesmoke;
   color: #333;
   margin-bottom: 15px;
 }
+
 .Bar {
   width: 100%;
 }
+
 .el-aside {
   background-color: #d3dce6;
   color: #333;
