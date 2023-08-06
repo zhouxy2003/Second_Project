@@ -7,7 +7,6 @@ Vue.use(ElementUI); // 3.安装
 
 Vue.config.productionTip = false
 
-
 new Vue({
   el:"#app",
   render: h => h(App),
