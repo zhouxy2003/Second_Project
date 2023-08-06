@@ -6,27 +6,31 @@
       width="25%"
       :showClose="false"
     >
-      <el-form :model="form" label-width="80px" ref="form">
-        <el-form-item label="ID:" prop="id" :rules="rules.id">
-          <el-input v-model="form.id"></el-input>
+      <el-form v-model="form" label-width="80px" ref="form">
+        <el-form-item label="ID:" prop="id">
+          <!-- 
+            当处于编辑时， 该值不可修改  
+           :disabled="isEditMode"
+          -->
+          <el-input v-model="form.id" :disabled="isEditMode"></el-input>
         </el-form-item>
 
-        <el-form-item label="Name:" prop="name" :rules="rules.name">
+        <el-form-item label="Name:" prop="name">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
 
-        <el-form-item label="API:" prop="api" :rules="rules.api">
+        <el-form-item label="API:" prop="api">
           <el-input v-model="form.api"></el-input>
         </el-form-item>
 
-        <el-form-item label="Done:" prop="done" :rules="rules.done">
+        <el-form-item label="Done:" prop="done">
           <el-select v-model="form.done" placeholder="请选择">
             <el-option label="true" value="true"></el-option>
             <el-option label="false" value="false"></el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item label="Method:" prop="method" :rules="rules.method">
+        <el-form-item label="Method:" prop="method">
           <el-select
             v-model="form.method"
             placeholder="请选择"
@@ -38,10 +42,7 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button
-          type="danger"
-          @click="dialogVisible = false"
-          class="custom-select"
+        <el-button type="danger" @click="CancelClick" class="custom-select"
           >取 消</el-button
         >
         <el-button type="primary" @click="uploadForm">确 定</el-button>
@@ -53,6 +54,14 @@
 <script>
 import Bus from "@/Bus";
 export default {
+  props: {
+    isEditMode: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+
   name: "diaLog",
   data() {
     return {
@@ -64,22 +73,26 @@ export default {
         done: "",
         method: "",
       },
-      rules: {
-        id: [{ required: true, message: "请输入ID", trigger: "blur" }],
-        name: [{ required: true, message: "请输入Name", trigger: "blur" }],
-        api: [{ required: true, message: "请输入API", trigger: "blur" }],
-        done: [{ required: true, message: "请选择Done", trigger: "change" }],
-        method: [
-          { required: true, message: "请选择Method", trigger: "change" },
-        ],
-      },
+      // rules: {
+      //   id: [{ required: true, message: "请输入ID", trigger: "blur" }],
+      //   name: [{ required: true, message: "请输入Name", trigger: "blur" }],
+      //   api: [{ required: true, message: "请输入API", trigger: "blur" }],
+      //   done: [{ required: true, message: "请选择Done", trigger: "change" }],
+      //   method: [
+      //     { required: true, message: "请选择Method", trigger: "change" },
+      //   ],
+      // },
     };
   },
   methods: {
     uploadForm() {
       this.dialogVisible = false;
-
       Bus.$emit("uploadForm", this.form);
+      this.$emit("clickDowned");
+    },
+    CancelClick() {
+      this.dialogVisible = false;
+      this.$emit("clickDowned");
     },
   },
 };

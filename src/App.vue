@@ -1,8 +1,13 @@
 <template>
   <div id="app">
-    <admin-login v-if="sin_in" @change-done="updateDone"></admin-login>
+    <!-- <admin-login v-if="sin_in" @change-done="updateDone"></admin-login> -->
+    <!-- 此行勿删 -->
+    <admin-login v-if="sin_in = false" @change-done="updateDone"></admin-login>
     <!-- 布局容器   -->
-    <el-container v-if="isShow">
+    <!-- <el-container v-if="isShow"> -->
+
+      <!-- 此行勿删 -->
+    <el-container v-if="isShow = true">
       <!--  头部    -->
       <el-header>
         <MyHeader></MyHeader>
@@ -88,8 +93,19 @@ export default {
   created() {
     // 监听自定义事件，并处理传递的数据
     Bus.$on("uploadForm", (formData) => {
-      const copiedForm = {...formData}; // 使用展开运算符创建一个新的对象副本
-      this.testArr.push(copiedForm);
+      const copiedForm = { ...formData }; // 使用展开运算符创建一个新的对象副本
+
+      // 使用find方法获取匹配到的对象， 根据Id标识
+      const existingItem = this.testArr.find(
+        (item) => item.id === copiedForm.id
+      );
+      if (existingItem) {
+        // 如果找到对应的元素，进行覆盖
+        Object.assign(existingItem, copiedForm);
+      } else {
+        // 如果没有找到，将新对象添加到数组中
+        this.testArr.push(copiedForm);
+      }
     });
   },
 };

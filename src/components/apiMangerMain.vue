@@ -8,41 +8,41 @@
         <span class="Sp">❗Done</span>
         <span class="Sp">🕹️Method</span>
         <button @click="openDialog">新增接口</button>
-        <dia-log ref="diaLogRef"></dia-log>
+        <dia-log ref="diaLogRef" 
+        :isEditMode="isEditMode"
+        @clickDowned = "handleClickDown"
+        ></dia-log>
       </p>
     </div>
     <div class="DataList">
-      <ul v-for="(ta,index) in testArr" :key="ta.id" style="margin-top: 20px">
+      <ul v-for="(ta, index) in testArr" :key="ta.id" style="margin-top: 20px">
         <li class="dataLi">
           <span class="firstSp_dataLi">{{ index + 1 }}</span>
           <span class="Sp_dataLi span_name">{{ ta.name }}</span>
           <span class="span_api">{{ ta.api }}</span>
           <span class="Sp_dataLi span_done"
-          >{{ ta.done === "true" ? "🟢" : "🔴" }}{{ ta.done }}</span
+            >{{ ta.done === "true" ? "🟢" : "🔴" }}{{ ta.done }}</span
           >
           <span class="Sp_dataLi span_method">{{ ta.method }}</span>
           <el-button
-              plain
-              type="primary"
-              size="small"
-              :key="'edit-button-' + ta.name"
-          >编辑
-          </el-button
-          >
+            plain
+            type="primary"
+            size="small"
+            :key="'edit-button-' + ta.name"
+            @click="EditArr(index)"
+            >编辑
+          </el-button>
           <el-button
-              plain
-              type="danger"
-              size="small "
-              :key="'delete-button-' + ta.name"
-              @click="deleteArr(index)"
-          >删除
-          </el-button
-          >
+            plain
+            type="danger"
+            size="small "
+            :key="'delete-button-' + ta.name"
+            @click="deleteArr(index)"
+            >删除
+          </el-button>
         </li>
       </ul>
     </div>
-
-
   </div>
 </template>
 
@@ -53,27 +53,50 @@ export default {
   name: "apiMangerMain",
   props: ["testArr"],
   components: {
-    diaLog
+    diaLog,
   },
   methods: {
-    openDialog() {
+    openDialog(val) {
       const LogRef = this.$refs.diaLogRef;
       LogRef.dialogVisible = true;
 
       // 并在每次点击清空上次的表格填写内容
-      Object.keys(LogRef.form).forEach((item) => {
-        LogRef.form[item] = "";
-      });
+
+      // 未处于编辑时，清空上次对话
+      if (this.isEditMode == false) {
+        // console.log("这里被跳过了吗");
+        Object.keys(LogRef.form).forEach((item) => {
+          LogRef.form[item] = "";
+        });
+      }
+      
+      // 处于编辑状态， 将数组数据 赋值给当前对话 /数据回显
+      else {
+        console.log("11");
+        LogRef.form = val;
+      }
     },
+    // 删除数组某行数据
     deleteArr(val) {
-      console.log(val)
-      this.$props.testArr.splice(val, 1)
+      console.log(val);
+      this.$props.testArr.splice(val, 1);
+    },
+    // 编辑某行数据
+    EditArr(val) {
+      const GoalItem = { ...this.$props.testArr[val] };
+      this.isEditMode = true;
+      this.openDialog(GoalItem);
+    },
+    // 响应事件，当用户点击确认或取消时，将EditMode模式改为false
+    handleClickDown() {
+      this.isEditMode = false;
     }
   },
   data() {
     return {
       diaLogRef: {},
-      isShowBox: true
+      isShowBox: true,
+      isEditMode: false,
     };
   },
 };
@@ -190,7 +213,6 @@ export default {
   display: flex;
   box-sizing: border-box; /* 保证 padding 和 border 不会增加元素宽度 */
 
-
   /* 此部分暂时解决 缩小时, 文本溢出换行 */
   white-space: nowrap; /* 防止换行 */
   overflow: hidden; /* 超出部分隐藏 */
@@ -208,7 +230,4 @@ export default {
   margin-left: 10px;
   margin-right: 10px;
 }
-
-
-
 </style>
