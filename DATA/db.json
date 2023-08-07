@@ -1,0 +1,25 @@
+{
+  "APIDATA": [
+    {
+      "id": 1,
+      "name": "天气接口",
+      "api": "https://apiTest.cn",
+      "done": "false",
+      "method": "GET"
+    },
+    {
+      "id": 2,
+      "name": "交通接口",
+      "api": "https://apiTest.cn",
+      "done": "true",
+      "method": "GET"
+    },
+    {
+      "id": 3,
+      "name": "教育接口",
+      "api": "https://apiTest.cn",
+      "done": "true",
+      "method": "GET"
+    }
+  ]
+}

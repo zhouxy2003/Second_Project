@@ -8,9 +8,9 @@
         <span class="Sp">❗Done</span>
         <span class="Sp">🕹️Method</span>
         <button @click="openDialog">新增接口</button>
-        <dia-log ref="diaLogRef" 
-        :isEditMode="isEditMode"
-        @clickDowned = "handleClickDown"
+        <dia-log ref="diaLogRef"
+                 :isEditMode="isEditMode"
+                 @clickDowned="handleClickDown"
         ></dia-log>
       </p>
     </div>
@@ -21,24 +21,24 @@
           <span class="Sp_dataLi span_name">{{ ta.name }}</span>
           <span class="span_api">{{ ta.api }}</span>
           <span class="Sp_dataLi span_done"
-            >{{ ta.done === "true" ? "🟢" : "🔴" }}{{ ta.done }}</span
+          >{{ ta.done === "true" ? "🟢" : "🔴" }}{{ ta.done }}</span
           >
           <span class="Sp_dataLi span_method">{{ ta.method }}</span>
           <el-button
-            plain
-            type="primary"
-            size="small"
-            :key="'edit-button-' + ta.name"
-            @click="EditArr(index)"
-            >编辑
+              plain
+              type="primary"
+              size="small"
+              :key="'edit-button-' + ta.name"
+              @click="EditArr(index)"
+          >编辑
           </el-button>
           <el-button
-            plain
-            type="danger"
-            size="small "
-            :key="'delete-button-' + ta.name"
-            @click="deleteArr(index)"
-            >删除
+              plain
+              type="danger"
+              size="small "
+              :key="'delete-button-' + ta.name"
+              @click="deleteArr(index)"
+          >删除
           </el-button>
         </li>
       </ul>
@@ -69,21 +69,52 @@ export default {
           LogRef.form[item] = "";
         });
       }
-      
+
       // 处于编辑状态， 将数组数据 赋值给当前对话 /数据回显
       else {
         console.log("11");
         LogRef.form = val;
       }
     },
-    // 删除数组某行数据
+
+    // 删除数组某行数据 =======================================================
+    // 这里通过fetch方法 向服务器端口发送delete请求 删除db.json中对应的数据
     deleteArr(val) {
-      console.log(val);
-      this.$props.testArr.splice(val, 1);
+      const confirmation = confirm('是否确定要删除？');
+      if (confirmation) {
+        // 用户点击了确定，执行删除操作
+        this.$props.testArr.splice(val, 1);
+        deleteData();
+
+      } else {
+        // 用户点击了取消，不执行任何操作
+      }
+
+      function deleteData() {
+
+        let index = val + 1;
+        fetch(`http://localhost:3000/APIDATA/${index}`, {
+          method: 'DELETE'
+        })
+            .then(response => {
+              if (response.ok) {
+                console.log('删除成功');
+              } else {
+                console.log('删除失败');
+              }
+            })
+            .catch(error => {
+              console.error('请求出错:', error);
+            });
+      }
+
+      // 删除数组某行数据 =======================================================
+
+
     },
     // 编辑某行数据
     EditArr(val) {
-      const GoalItem = { ...this.$props.testArr[val] };
+      const GoalItem = {...this.$props.testArr[val]};
       this.isEditMode = true;
       this.openDialog(GoalItem);
     },
