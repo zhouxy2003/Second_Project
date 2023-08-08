@@ -1,5 +1,8 @@
 <template>
   <div>
+    <button class="fixed-button" @click="addChat">聊天</button>
+    <button class="closeButton" @click="addChatClose">关闭</button>
+    <chatWindow :chatArr="chatArr" v-if="isChat"  @child-event="handleChildEvent"></chatWindow>
     <div class="top">
       <p>
         <span class="firstSp Sp">🆔ID</span>
@@ -48,12 +51,13 @@
 
 <script>
 import diaLog from "./MainUse/dialog/dialog";
+import chatWindow from "./MainUse/dialog/chatWindow.vue";
 
 export default {
   name: "apiMangerMain",
   props: ["testArr"],
   components: {
-    diaLog,
+    diaLog,chatWindow
   },
   methods: {
     openDialog(val) {
@@ -121,6 +125,74 @@ export default {
     // 响应事件，当用户点击确认或取消时，将EditMode模式改为false
     handleClickDown() {
       this.isEditMode = false;
+    },
+    addChat(){
+      // =====================================================
+// 这里在本地创建了db.json 也就是通过json-server模拟服务器 从而模拟从服务器获取数据
+//  请求数据      把数据都保存到本地
+      // 创建XHR对象
+      const xhr = new XMLHttpRequest();
+
+      // 设置请求方法和URL
+      xhr.open("GET", `http://localhost:3000/chatData`, true);
+
+      // 监听XHR对象的load事件
+      xhr.onload = () => {
+        // 检查响应状态
+        if (xhr.status === 200) {
+          // 将响应数据解析为JSON格式
+          const data = JSON.parse(xhr.responseText);
+
+          // 将JSON数据赋值给Vue组件的data中的数组
+          this.chatArr = data;
+        } else {
+          console.error('Request failed. Status:', xhr.status);
+        }
+      };
+
+      // 监听XHR对象的error事件
+      xhr.onerror = () => {
+        console.error('Request failed.');
+      };
+
+      // 发送请求
+      xhr.send();
+      this.isChat=true;
+      // =====================================================
+    },
+    addChatClose(){
+      this.isChat=false;
+    },
+    handleChildEvent(data) {
+      // 接收子组件传递的数据
+      if(data){
+        const xhr = new XMLHttpRequest();
+
+        // 设置请求方法和URL
+        xhr.open("GET", `http://localhost:3000/chatData`, true);
+
+        // 监听XHR对象的load事件
+        xhr.onload = () => {
+          // 检查响应状态
+          if (xhr.status === 200) {
+            // 将响应数据解析为JSON格式
+            const data = JSON.parse(xhr.responseText);
+
+            // 将JSON数据赋值给Vue组件的data中的数组
+            this.chatArr = data;
+          } else {
+            console.error('Request failed. Status:', xhr.status);
+          }
+        };
+
+        // 监听XHR对象的error事件
+        xhr.onerror = () => {
+          console.error('Request failed.');
+        };
+
+        // 发送请求
+        xhr.send();
+      }
     }
   },
   data() {
@@ -128,6 +200,8 @@ export default {
       diaLogRef: {},
       isShowBox: true,
       isEditMode: false,
+      chatArr:[],
+      isChat:false
     };
   },
 };
@@ -135,6 +209,30 @@ export default {
 
 <!-- 在此处对样式进行 修改为scoped（局部生效）我引入组件被覆盖 -->
 <style scoped>
+.fixed-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 90px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  color: rgb(7, 193, 96);
+  background-color: rgb(233, 233, 233);
+}
+
+.closeButton{
+  position: fixed;
+  bottom: 20px;
+  left: 140px;
+  width: 90px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  color: rgb(7, 193, 96);
+  background-color: rgb(233, 233, 233);
+}
+
 .top {
   width: 100%;
   height: 60px;
@@ -144,6 +242,7 @@ export default {
   white-space: nowrap; /* 防止换行 */
   overflow: hidden; /* 超出部分隐藏 */
   text-overflow: ellipsis; /* 超出部分显示省略号 */
+
 }
 
 .firstSp {
