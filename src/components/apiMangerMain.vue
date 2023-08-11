@@ -134,7 +134,7 @@ export default {
       const xhr = new XMLHttpRequest();
 
       // 设置请求方法和URL
-      xhr.open("GET", `http://localhost:3000/chatData`, true);
+      xhr.open("GET", 'http://localhost:3000/chatData', true);
 
       // 监听XHR对象的load事件
       xhr.onload = () => {
@@ -142,8 +142,6 @@ export default {
         if (xhr.status === 200) {
           // 将响应数据解析为JSON格式
           const data = JSON.parse(xhr.responseText);
-
-          // 将JSON数据赋值给Vue组件的data中的数组
           this.chatArr = data;
         } else {
           console.error('Request failed. Status:', xhr.status);

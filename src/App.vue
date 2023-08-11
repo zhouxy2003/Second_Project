@@ -23,6 +23,7 @@
         </el-aside>
         <!--  中间    -->
         <el-main>
+<!--          <apiMangerTest  :testArr="testArr"></apiMangerTest>-->
           <apiMangerMain :testArr="testArr"></apiMangerMain>
         </el-main>
       </el-container>
@@ -37,6 +38,8 @@ import MyHeader from "@/components/MyHeader.vue";
 import NavigationBar from "@/components/NavigationBar.vue";
 //引入登录界面组件
 import adminLogin from "@/components/adminLogin.vue";
+//引入接口测试界面
+import apiMangerTest from "@/components/apiMangerTest.vue";
 
 //管理左边
 import apiMangerAside from "@/components/apiMangerAside.vue";
@@ -60,7 +63,8 @@ export default {
     NavigationBar,
     adminLogin,
     apiMangerAside,
-    apiMangerMain,
+    apiMangerTest,
+    apiMangerMain
   },
   methods: {
     updateDone(newDone) {
@@ -92,7 +96,7 @@ export default {
       const xhr = new XMLHttpRequest();
 
       // 设置请求方法和URL
-      xhr.open("GET", `http://localhost:3000/APIDATA`, true);
+      xhr.open("GET", `http://127.0.0.1:3000/APIDATA`, true);
 
       // 监听XHR对象的load事件
       xhr.onload = () => {

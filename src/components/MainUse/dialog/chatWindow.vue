@@ -52,9 +52,10 @@ export default {
       let seconds=t.getSeconds().toString().padStart(2,'0');
       let str = `${year}/${month}/${date}/${hour}:${min}:${seconds}`;
       let textValue = text.value;
+
       // =====================================================
 // 这里在本地创建了db.json 也就是通过json-server模拟服务器 从而模拟从服务器获取数据
-      const url = 'http://localhost:3000/chatData'; // 替换为你的请求URL
+     const url = ' http://localhost:3000/chatData'; // 替换为你的请求URL
       const data = {
         timeMessage: str,
         user_message:textValue
@@ -65,6 +66,7 @@ export default {
         headers: {
           'Content-Type': 'application/json'
         },
+
         body: JSON.stringify(data)
       })
           .then(response => {
@@ -83,6 +85,8 @@ export default {
             console.error('Error:', error);
             // 处理错误的逻辑
           });
+
+
 
 
     }
