@@ -2,7 +2,11 @@
   <div>
     <button class="fixed-button" @click="addChat">聊天</button>
     <button class="closeButton" @click="addChatClose">关闭</button>
-    <chatWindow :chatArr="chatArr" v-if="isChat"  @child-event="handleChildEvent"></chatWindow>
+    <chatWindow
+      :chatArr="chatArr"
+      v-if="isChat"
+      @child-event="handleChildEvent"
+    ></chatWindow>
     <div class="top">
       <p>
         <span class="firstSp Sp">🆔ID</span>
@@ -11,9 +15,12 @@
         <span class="Sp">❗Done</span>
         <span class="Sp">🕹️Method</span>
         <button @click="openDialog">新增接口</button>
-        <dia-log ref="diaLogRef"
-                 :isEditMode="isEditMode"
-                 @clickDowned="handleClickDown"
+        <dia-log
+          ref="diaLogRef"
+          :testArr="testArr"
+          :isEditMode="isEditMode"
+          @clickDowned="handleClickDown"
+          @child-event="handleChildEventArr"
         ></dia-log>
       </p>
     </div>
@@ -24,24 +31,24 @@
           <span class="Sp_dataLi span_name">{{ ta.name }}</span>
           <span class="span_api">{{ ta.api }}</span>
           <span class="Sp_dataLi span_done"
-          >{{ ta.done === "true" ? "🟢" : "🔴" }}{{ ta.done }}</span
+            >{{ ta.done === "true" ? "🟢" : "🔴" }}{{ ta.done }}</span
           >
           <span class="Sp_dataLi span_method">{{ ta.method }}</span>
           <el-button
-              plain
-              type="primary"
-              size="small"
-              :key="'edit-button-' + ta.name"
-              @click="EditArr(index)"
-          >编辑
+            plain
+            type="primary"
+            size="small"
+            :key="'edit-button-' + ta.name"
+            @click="EditArr(index)"
+            >编辑
           </el-button>
           <el-button
-              plain
-              type="danger"
-              size="small "
-              :key="'delete-button-' + ta.name"
-              @click="deleteArr(index)"
-          >删除
+            plain
+            type="danger"
+            size="small "
+            :key="'delete-button-' + ta.name"
+            @click="deleteArr(index)"
+            >删除
           </el-button>
         </li>
       </ul>
@@ -57,19 +64,24 @@ export default {
   name: "apiMangerMain",
   props: ["testArr"],
   components: {
-    diaLog,chatWindow
+    diaLog,
+    chatWindow,
   },
   methods: {
     openDialog(val) {
       const LogRef = this.$refs.diaLogRef;
       LogRef.dialogVisible = true;
 
+      console.log("11");
       // 并在每次点击清空上次的表格填写内容
 
-      // 未处于编辑时，清空上次对话
+      // 未处于编辑时，清空上次对话， 但是保留id号
       if (this.isEditMode == false) {
-        // console.log("这里被跳过了吗");
+        console.log("这里被跳过了吗");
         Object.keys(LogRef.form).forEach((item) => {
+          // if (item === "id") {
+          //   LogRef.form[item] = this.testArr.length + 1;
+          // }
           LogRef.form[item] = "";
         });
       }
@@ -83,42 +95,41 @@ export default {
 
     // 删除数组某行数据 =======================================================
     // 这里通过fetch方法 向服务器端口发送delete请求 删除db.json中对应的数据
-    deleteArr(val) {
-      const confirmation = confirm('是否确定要删除？');
+    async deleteArr(val) {
+      const confirmation = confirm("是否确定要删除？");
       if (confirmation) {
-        // 用户点击了确定，执行删除操作
-        this.$props.testArr.splice(val, 1);
-        deleteData();
+        let id = this.$props.testArr[val].id;
 
+        await this.deleteData(id);
+        // 更新数据
+        this.handleChildEventArr();
       } else {
         // 用户点击了取消，不执行任何操作
       }
-
-      function deleteData() {
-
-        let index = val + 1;
-        fetch(`http://localhost:3000/APIDATA/${index}`, {
-          method: 'DELETE'
-        })
-            .then(response => {
-              if (response.ok) {
-                console.log('删除成功');
-              } else {
-                console.log('删除失败');
-              }
-            })
-            .catch(error => {
-              console.error('请求出错:', error);
-            });
-      }
-
-      // 删除数组某行数据 =======================================================
-
-
     },
+
+    async deleteData(id) {
+      try {
+        let index = id;
+        const response = await fetch(`http://localhost:3000/APIDATA/${index}`, {
+          method: "DELETE",
+        });
+
+        if (response.ok) {
+          console.log(this.index);
+          console.log("删除成功");
+        } else {
+          console.log(this.index);
+          console.log("删除失败");
+        }
+      } catch (error) {
+        console.error("请求出错:", error);
+      }
+    },
+
     // 编辑某行数据
     EditArr(val) {
-      const GoalItem = {...this.$props.testArr[val]};
+      const GoalItem = { ...this.$props.testArr[val] };
       this.isEditMode = true;
       this.openDialog(GoalItem);
     },
@@ -126,15 +137,15 @@ export default {
     handleClickDown() {
       this.isEditMode = false;
     },
-    addChat(){
+    addChat() {
       // =====================================================
-// 这里在本地创建了db.json 也就是通过json-server模拟服务器 从而模拟从服务器获取数据
-//  请求数据      把数据都保存到本地
+      // 这里在本地创建了db.json 也就是通过json-server模拟服务器 从而模拟从服务器获取数据
+      //  请求数据      把数据都保存到本地
       // 创建XHR对象
       const xhr = new XMLHttpRequest();
 
       // 设置请求方法和URL
-      xhr.open("GET", `http://localhost:3000/chatData`, true);
+      xhr.open("GET", "http://localhost:3000/chatData", true);
 
       // 监听XHR对象的load事件
       xhr.onload = () => {
@@ -142,30 +153,28 @@ export default {
         if (xhr.status === 200) {
           // 将响应数据解析为JSON格式
           const data = JSON.parse(xhr.responseText);
-
-          // 将JSON数据赋值给Vue组件的data中的数组
           this.chatArr = data;
         } else {
-          console.error('Request failed. Status:', xhr.status);
+          console.error("Request failed. Status:", xhr.status);
         }
       };
 
       // 监听XHR对象的error事件
       xhr.onerror = () => {
-        console.error('Request failed.');
+        console.error("Request failed.");
       };
 
       // 发送请求
       xhr.send();
-      this.isChat=true;
+      this.isChat = true;
       // =====================================================
     },
-    addChatClose(){
-      this.isChat=false;
+    addChatClose() {
+      this.isChat = false;
     },
     handleChildEvent(data) {
       // 接收子组件传递的数据
-      if(data){
+      if (data) {
         const xhr = new XMLHttpRequest();
 
         // 设置请求方法和URL
@@ -181,27 +190,31 @@ export default {
             // 将JSON数据赋值给Vue组件的data中的数组
             this.chatArr = data;
           } else {
-            console.error('Request failed. Status:', xhr.status);
+            console.error("Request failed. Status:", xhr.status);
           }
         };
 
         // 监听XHR对象的error事件
         xhr.onerror = () => {
-          console.error('Request failed.');
+          console.error("Request failed.");
         };
 
         // 发送请求
         xhr.send();
       }
-    }
+    },
+
+    handleChildEventArr() {
+      this.$emit("upData");
+    },
   },
   data() {
     return {
       diaLogRef: {},
       isShowBox: true,
       isEditMode: false,
-      chatArr:[],
-      isChat:false
+      chatArr: [],
+      isChat: false,
     };
   },
 };
@@ -221,7 +234,7 @@ export default {
   background-color: rgb(233, 233, 233);
 }
 
-.closeButton{
+.closeButton {
   position: fixed;
   bottom: 20px;
   left: 140px;
@@ -242,7 +255,6 @@ export default {
   white-space: nowrap; /* 防止换行 */
   overflow: hidden; /* 超出部分隐藏 */
   text-overflow: ellipsis; /* 超出部分显示省略号 */
-
 }
 
 .firstSp {

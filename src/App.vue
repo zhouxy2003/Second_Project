@@ -1,12 +1,7 @@
 <template>
   <div id="app">
-    <!-- <admin-login v-if="sin_in" @change-done="updateDone"></admin-login> -->
-    <!-- 此行勿删 -->
     <admin-login v-if="sin_in" @change-done="updateDone"></admin-login>
-    <!-- 布局容器   -->
-    <!-- <el-container v-if="isShow"> -->
 
-    <!-- 此行勿删 -->
     <el-container v-if="isShow">
       <!--  头部    -->
       <el-header>
@@ -23,7 +18,12 @@
         </el-aside>
         <!--  中间    -->
         <el-main>
-          <apiMangerMain :testArr="testArr"></apiMangerMain>
+          <!-- <apiMangerTest  :testArr="testArr"></apiMangerTest>   原注释位置-->
+          <apiMangerTest :testArr="testArr"></apiMangerTest>
+          <apiMangerMain
+            :testArr="testArr"
+            @upData="handleData"
+          ></apiMangerMain>
         </el-main>
       </el-container>
     </el-container>
@@ -37,6 +37,8 @@ import MyHeader from "@/components/MyHeader.vue";
 import NavigationBar from "@/components/NavigationBar.vue";
 //引入登录界面组件
 import adminLogin from "@/components/adminLogin.vue";
+//引入接口测试界面
+import apiMangerTest from "@/components/apiMangerTest.vue";
 
 //管理左边
 import apiMangerAside from "@/components/apiMangerAside.vue";
@@ -45,12 +47,16 @@ import apiMangerMain from "@/components/apiMangerMain.vue";
 // 使用事件总线
 import Bus from "@/Bus";
 
+// 导入getData hook中函数， 获取最新api信息
+
 export default {
   name: "App",
   data() {
     return {
       isShow: false,
       sin_in: true,
+      // isShow: true,
+      // sin_in: false,
       //接口信息
       testArr: [],
     };
@@ -60,39 +66,41 @@ export default {
     NavigationBar,
     adminLogin,
     apiMangerAside,
+    apiMangerTest,
     apiMangerMain,
   },
   methods: {
     updateDone(newDone) {
-
-      console.log('\n' +
-          '   ____   __   __  _____  U _____ u ____       _      _   _      ____ U _____ u \n' +
+      console.log(
+        "\n" +
+          "   ____   __   __  _____  U _____ u ____       _      _   _      ____ U _____ u \n" +
           'U | __")u \\ \\ / / |_ " _| \\| ___"|/|  _"\\  U  /"\\  u | \\ |"|  U /"___|\\| ___"|/ \n' +
           ' \\|  _ \\/  \\ V /    | |    |  _|" /| | | |  \\/ _ \\/ <|  \\| |> \\| | u   |  _|"   \n' +
           '  | |_) | U_|"|_u  /| |\\   | |___ U| |_| |\\ / ___ \\ U| |\\  |u  | |/__  | |___   \n' +
-          '  |____/    |_|   u |_|U   |_____| |____/ u/_/   \\_\\ |_| \\_|    \\____| |_____|  \n' +
-          ' _|| \\\\_.-,//|(_  _// \\\\_  <<   >>  |||_    \\\\    >> ||   \\\\,-._// \\\\  <<   >>  \n' +
-          '(__) (__)\\_) (__)(__) (__)(__) (__)(__)_)  (__)  (__)(_")  (_/(__)(__)(__) (__) \n')
-      console.log('\n' +
-          ' __        __     _                                _           _                _        \n' +
-          ' \\ \\      / /___ | |  ___  ___   _ __ ___    ___  | |_  ___   | |  ___    __ _ (_) _ __  \n' +
-          '  \\ \\ /\\ / // _ \\| | / __|/ _ \\ | \'_ ` _ \\  / _ \\ | __|/ _ \\  | | / _ \\  / _` || || \'_ \\ \n' +
-          '   \\ V  V /|  __/| || (__| (_) || | | | | ||  __/ | |_| (_) | | || (_) || (_| || || | | |\n' +
-          '    \\_/\\_/  \\___||_| \\___|\\___/ |_| |_| |_| \\___|  \\__|\\___/  |_| \\___/  \\__, ||_||_| |_|\n' +
-          '                                                                         |___/           \n')
-
+          "  |____/    |_|   u |_|U   |_____| |____/ u/_/   \\_\\ |_| \\_|    \\____| |_____|  \n" +
+          " _|| \\\\_.-,//|(_  _// \\\\_  <<   >>  |||_    \\\\    >> ||   \\\\,-._// \\\\  <<   >>  \n" +
+          '(__) (__)\\_) (__)(__) (__)(__) (__)(__)_)  (__)  (__)(_")  (_/(__)(__)(__) (__) \n'
+      );
+      console.log(
+        "\n" +
+          " __        __     _                                _           _                _        \n" +
+          " \\ \\      / /___ | |  ___  ___   _ __ ___    ___  | |_  ___   | |  ___    __ _ (_) _ __  \n" +
+          "  \\ \\ /\\ / // _ \\| | / __|/ _ \\ | '_ ` _ \\  / _ \\ | __|/ _ \\  | | / _ \\  / _` || || '_ \\ \n" +
+          "   \\ V  V /|  __/| || (__| (_) || | | | | ||  __/ | |_| (_) | | || (_) || (_| || || | | |\n" +
+          "    \\_/\\_/  \\___||_| \\___|\\___/ |_| |_| |_| \\___|  \\__|\\___/  |_| \\___/  \\__, ||_||_| |_|\n" +
+          "                                                                         |___/           \n"
+      );
 
       this.isShow = newDone;
       this.sin_in = false;
 
-// =====================================================
-// 这里在本地创建了db.json 也就是通过json-server模拟服务器 从而模拟从服务器获取数据
-//  请求数据      把数据都保存到本地
+      // =====================================================
+      // 这里在本地创建了db.json 也就是通过json-server模拟服务器 从而模拟从服务器获取数据
+      //  请求数据      把数据都保存到本地
       // 创建XHR对象
       const xhr = new XMLHttpRequest();
-
       // 设置请求方法和URL
-      xhr.open("GET", `http://localhost:3000/APIDATA`, true);
+      xhr.open("GET", `http://127.0.0.1:3000/APIDATA`, true);
 
       // 监听XHR对象的load事件
       xhr.onload = () => {
@@ -101,40 +109,68 @@ export default {
           // 将响应数据解析为JSON格式
           const data = JSON.parse(xhr.responseText);
 
-          // 将JSON数据赋值给Vue组件的data中的数组
+          // 使用 .$set 更新响应式数据
           this.testArr = data;
         } else {
-          console.error('Request failed. Status:', xhr.status);
+          console.error("Request failed. Status:", xhr.status);
         }
       };
 
       // 监听XHR对象的error事件
       xhr.onerror = () => {
-        console.error('Request failed.');
+        console.error("Request failed.");
       };
 
       // 发送请求
       xhr.send();
-    }
+    },
+    // 更新arr数据
+    handleData() {
+      const xhr = new XMLHttpRequest();
+      // 设置请求方法和URL
+      xhr.open("GET", `http://127.0.0.1:3000/APIDATA`, true);
 
+      // 监听XHR对象的load事件
+      xhr.onload = () => {
+        // 检查响应状态
+        if (xhr.status === 200) {
+          // 将响应数据解析为JSON格式
+          const data = JSON.parse(xhr.responseText);
+
+          // 使用 .$set 更新响应式数据
+          this.testArr = data;
+        } else {
+          console.error("Request failed. Status:", xhr.status);
+        }
+      };
+
+      // 监听XHR对象的error事件
+      xhr.onerror = () => {
+        console.error("Request failed.");
+      };
+
+      // 发送请求
+      xhr.send();
+    },
   },
-// ========================================================
+  // ========================================================
   created() {
-    // 监听自定义事件，并处理传递的数据
+    // 1. 在挂载生命周期中，需要对testArr从端口获取数据，使用computed包裹
     Bus.$on("uploadForm", (formData) => {
-      const copiedForm = {...formData}; // 使用展开运算符创建一个新的对象副本
+      const copiedForm = { ...formData }; // 使用展开运算符创建一个新的对象副本
 
       // 使用find方法获取匹配到的对象， 根据Id标识
       const existingItem = this.testArr.find(
-          (item) => item.id === copiedForm.id
+        (item) => item.id === copiedForm.id
       );
       if (existingItem) {
-        // 如果找到对应的元素，进行覆盖
+        // 如果找到对应的元素，进行覆盖（浅拷贝 适用于一级属性无引用类型）
         Object.assign(existingItem, copiedForm);
       } else {
         // 如果没有找到，将新对象添加到数组中
         this.testArr.push(copiedForm);
       }
+      // 数据更新
     });
   },
 };
