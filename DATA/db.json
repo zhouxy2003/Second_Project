@@ -10,23 +10,17 @@
     },
     {
       "id": 2,
-      "name": "演示3",
+      "name": "演示2",
       "portName": "/transport",
       "api": "https://apiTest2.cn",
       "done": "true",
       "method": "GET"
     },
     {
-      "id": "ads",
-      "name": "123ds",
-      "api": "12",
-      "done": "false",
-      "method": "POST"
-    },
-    {
-      "id": "33",
-      "name": "test11",
-      "api": "asd22",
+      "id": 3,
+      "name": "演示3",
+      "portName": "/BMI",
+      "api": "https://apiTest3.cn",
       "done": "true",
       "method": "GET"
     },
@@ -93,26 +87,6 @@
       "timeMessage": "2023/8/11/15:47:41",
       "user_message": "我们要加油",
       "id": 11
-    },
-    {
-      "timeMessage": "2023/8/14/21:50:45",
-      "user_message": "1111",
-      "id": 12
-    },
-    {
-      "timeMessage": "2023/8/14/21:50:47",
-      "user_message": "1111",
-      "id": 13
-    },
-    {
-      "timeMessage": "2023/8/14/21:50:59",
-      "user_message": "",
-      "id": 14
-    },
-    {
-      "timeMessage": "2023/8/14/21:51:00",
-      "user_message": "",
-      "id": 15
     }
   ]
 }
