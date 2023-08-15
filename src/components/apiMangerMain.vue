@@ -88,6 +88,7 @@ export default {
 
       // 处于编辑状态， 将数组数据 赋值给当前对话 /数据回显
       else {
+        LogRef.dataValid = true; // 启用按钮 能上传时意味着APi 有效
         console.log("11");
         LogRef.form = val;
       }

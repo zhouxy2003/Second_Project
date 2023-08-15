@@ -1,4 +1,4 @@
-export  function getData(ve) {
+export default  function getData(ve) {
   const xhr = new XMLHttpRequest();
   // 设置请求方法和URL
   xhr.open("GET", `http://127.0.0.1:3000/APIDATA`, true);

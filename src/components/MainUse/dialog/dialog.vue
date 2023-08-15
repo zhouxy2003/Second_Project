@@ -6,24 +6,23 @@
       width="25%"
       :showClose="false"
     >
-      <el-form v-model="form" label-width="80px" ref="form">
-        <el-form-item label="ID:" prop="id">
-          <!-- 
+      <el-form v-model="form" label-width="80px" ref="form" :rules="rules">
+        <!-- <el-form-item label="ID:" prop="id"> -->
+        <!-- 
             当处于编辑时， 该值不可修改  
            :disabled="isEditMode"
           -->
 
-          <!-- 将id默认锁住 -->
-          <el-input v-model="form.id" :disabled="isEditMode"></el-input>
-          <!-- <el-input v-model="form.id" :disabled="true"></el-input> -->
-        </el-form-item>
+        <!-- 将id默认锁住 -->
+        <!-- <el-input v-model="form.id" :disabled="isEditMode"></el-input>
+        </el-form-item> -->
 
         <el-form-item label="Name:" prop="name">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
 
         <el-form-item label="API:" prop="api">
-          <el-input v-model="form.api"></el-input>
+          <el-input v-model="form.api" @input="startApiValidation"></el-input>
         </el-form-item>
 
         <el-form-item label="Done:" prop="done">
@@ -48,7 +47,9 @@
         <el-button type="danger" @click="CancelClick" class="custom-select"
           >取 消</el-button
         >
-        <el-button type="primary" @click="uploadForm">确 定</el-button>
+        <el-button type="primary" @click="uploadForm" :disabled="!dataValid"
+          >确 定</el-button
+        >
       </span>
     </el-dialog>
   </div>
@@ -75,17 +76,37 @@ export default {
     return {
       dialogVisible: false,
       form: {
-        id: "",
+        // id: "",
         name: "",
         api: "",
         done: "",
         method: "",
       },
+      // 表格验证规则  不确定为什么失效
+      // rules: {
+      //   api: [
+      //     {
+      //       pattern: /^(http:\/\/|https:\/\/|www\.)/,
+      //       message: "请输入以'http://'、'https://'或'www.'开头的Api",
+      //       trigger: "blur",
+      //     },
+      //   ],
+      // },
+
+      dataValid: {
+        default: false,
+      },
+      // 定时器
+      apiValidationTimer: null,
     };
   },
+
   methods: {
     uploadForm() {
       this.dialogVisible = false;
+
+      // 将按钮重置为关闭状态
+      this.dataValid = false;
       // Bus.$emit("uploadForm", this.form);
       // =====================================================
       // 这里在本地创建了db.json 也就是通过json-server模拟服务器 从而模拟从服务器获取数据
@@ -151,7 +172,32 @@ export default {
 
     CancelClick() {
       this.dialogVisible = false;
+      // 将按钮重置为关闭状态
+      this.dataValid = false;
+
       this.$emit("clickDowned");
+    },
+
+    // 确定按钮的可用与否 - 
+    startApiValidation() {
+      if (this.apiValidationTimer) {
+        clearTimeout(this.apiValidationTimer); // 清除之前的定时器
+      }
+      this.apiValidationTimer = setTimeout(() => {
+        this.validateApi();
+      }, 1000); // 1秒延迟
+    },
+    validateApi() {
+      if (
+        this.form.api.startsWith("http://") ||
+        this.form.api.startsWith("https://") ||
+        this.form.api.startsWith("www.")
+      ) {
+        this.dataValid = true; // 启用按钮
+      } else {
+        this.dataValid = false; // 禁用按钮
+        alert("请输入以http://|| https:// || www.开头的API");
+      }
     },
   },
 };
