@@ -191,5 +191,168 @@
         "current": 1
       }
     }
+  },
+  "onlyId": {
+    "code": 1,
+    "msg": "数据返回成功",
+    "data": {
+      "id": "8a2a789976e64a1c9455ebd90853d4c6"
+    }
+  },
+  "fontConversion": {
+    "code": 1,
+    "msg": "数据返回成功！",
+    "data": {
+      "originContent": "当你老了",
+      "convertContent": "當你老了"
+    }
+  },
+  "car": {
+    "reason": "success",
+    "result": [
+      {
+        "id": "1",
+        "first_letter": "A",
+        "brand_name": "奥迪",
+        "brand_logo": "https://juhe.oss-cn-hangzhou.aliyuncs.com/api_image/538/brand/1.png"
+      }
+    ],
+    "error_code": 0
+  },
+  "textClassification": {
+    "code": "10000",
+    "charge": true,
+    "remain": 499996,
+    "remainTimes": 499996,
+    "remainSeconds": -1,
+    "msg": "查询成功,扣费",
+    "result": {
+      "status": 0,
+      "request_id": "68d951c0-4cc8-48c9-a6eb-d59e3d9d33e7",
+      "message": "ok",
+      "types": [
+        {
+          "probability": 0.727774441242218,
+          "domainName": "info",
+          "type": 3
+        },
+        {
+          "probability": 0.2294873297214508,
+          "domainName": "reject",
+          "type": 8
+        },
+        {
+          "probability": 0.042706381529569626,
+          "domainName": "song",
+          "type": 9
+        }
+      ]
+    }
+  },
+  "stock": {
+    "reason": "查询成功",
+    "result": {
+      "title": "汽车之家[ATHM]美股_富利证券",
+      "urlWap": "https:\/\/www.so.com\/link?m=bPWrvQykJ8K4U0qdUT6QWQ28bk6pSOrJ9HbJm1RyAZ1YQRJHRSUmEWNMxK0YMPm%2Bqov8r4i8Ja5L29cP5pghDNOkQ8%2FTfh%2BmG4Fl70olUhWyt0Lkzu2pDwXOOWb0rHjY%2FW5psA6a3D2d3MUlBM7edGgpOvkc%3D",
+      "url": "https:\/\/www.so.com\/link?m=b0oEAms4%2FMPLtkeoiJWutkIyZh0K%2Foz48ob6pd1SupK04m9FXw7Tr0tCF8nuG%2B4K5SsOsWm05Qd9VxUxFKXRdyaG%2FNaahOLFsfvQvsObCVf6E8%2FIRaPjyzN%2FDeYqiUN4mqTfbrOBh20UQrqynjGYP%2BgY84t8%3D",
+      "stockName": "汽车之家",
+      "currentPrice": "85.87",
+      "changeAmount": "+1.96",
+      "priceChangeRatio": "+2.34%",
+      "currenttime": "2020-09-05 04:00:04",
+      "timeZone": "北京时间",
+      "status": "2",
+      "open": "84.11",
+      "close": "83.91",
+      "maxPrice": "86.41",
+      "minPrice": "82.31",
+      "volume": "44.97万",
+      "amount": "3820.21万",
+      "marketCapitalization": "102.25亿",
+      "timeChart": {
+        "points": "330",
+        "cx": {
+          "o": [
+            "21:30",
+            "23:00",
+            "00:30",
+            "02:00",
+            "04:00"
+          ]
+        },
+        "cy": {
+          "o": [
+            "86.41",
+            "85.44",
+            "84.47",
+            "83.51",
+            "82.54"
+          ]
+        },
+        "cyrate": {
+          "o": [
+            "2.92%",
+            "1.77%",
+            "0.61%",
+            "-0.54%",
+            "-1.69%"
+          ]
+        },
+        "p": [
+          {
+            "date": "2020\/09\/04 星期五",
+            "price": "83.96",
+            "rise": "0",
+            "volumn": "30",
+            "time": "21:31"
+          },
+          {
+            "date": "2020\/09\/04 星期五",
+            "price": "83.96",
+            "rise": "0.00%",
+            "volumn": "30",
+            "time": "21:32"
+          },
+          {
+            "date": "2020\/09\/04 星期五",
+            "price": "83.59",
+            "rise": "-0.43%",
+            "volumn": "40",
+            "time": "21:33"
+          }
+        ]
+      },
+      "index": [
+        {
+          "name": "道琼斯",
+          "nameurl": "https:\/\/www.so.com\/link?m=b19r8gGgzIjB%2BdsJA6oGJJomRHcBB%2BjxzGb3%2BxYgvsiLHOdHlGS9axbfukcx7ZOlUR7kgKYdz12jZx7DkwvSepXe%2FOwsV%2B3ks3VTrLoFP3szXoF6OiXaa4X4%2B6v6uTgVaGdJBwLqmMiciJn6rZTA9FdgBXKs%3D",
+          "point": "281.71",
+          "ratio": "-0.58%"
+        },
+        {
+          "name": "标普500",
+          "nameurl": "https:\/\/www.so.com\/link?m=bM6dQsyT%2BliJ2AX430FqRRCudpxfzddW7%2FSBBsNRwDsBf5UgXfErBBuUv30YXbIs5yIKvJL8BLls2H0SJ%2BnAXRnnOt7e4nU57oYEKmXUKJfQW7yxUZ%2BYdfG1E7DsPEE522iuQ8eHajRMgL%2FeGTfRT4T0sINA%3D",
+          "point": "342.35",
+          "ratio": "-0.88%"
+        },
+        {
+          "name": "纳斯达克",
+          "nameurl": "https:\/\/www.so.com\/link?m=bHSnz86LhsDJQt7Hdv%2BF8LyPNZm9TpI0OeWSZ4pzzw0LMfmh3HgP3U108VYaBmUPQ3ByhcASpZC%2FzefVTtYBLYegDwD2J1WKKAE%2BucFEafRTiPFs9BYPQKpYkfMlnwg5DPGPTcFta%2FII0nf%2B%2BCT9psR%2BDkVlJgLon",
+          "point": "283.58",
+          "ratio": "-1.33%"
+        }
+      ],
+      "provider": "富利证券",
+      "showurl": "richbays.com",
+      "e": {
+        "@attributes": {
+          "e1": "85.87",
+          "e2": "+1.96",
+          "e3": "(+2.34%)",
+          "datetime": "2020-09-05 04:00:04"
+        }
+      }
+    },
+    "error_code": 0
   }
 }

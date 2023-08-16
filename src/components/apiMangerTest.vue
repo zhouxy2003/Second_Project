@@ -118,7 +118,7 @@ export default {
       input: '',
       head: "这里显示请求头信息",
       body: "这里显示接收的信息",
-      testArrPort: ["exchangeRate", "dailyWord", "weather", "wordVector", "BMI", "bankCard", "Wifi"]
+      testArrPort: ["exchangeRate", "dailyWord", "weather", "wordVector", "BMI", "bankCard", "Wifi","onlyId","fontConversion","car","textClassification","stock"]
     }
   },
 
