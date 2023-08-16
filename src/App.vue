@@ -5,11 +5,11 @@
     <el-container v-if="isShow">
       <!--  头部    -->
       <el-header>
-        <MyHeader></MyHeader>
+        <MyHeader @change-done="out"></MyHeader>
       </el-header>
       <!--  导航栏    -->
       <div class="Bar">
-        <NavigationBar></NavigationBar>
+        <NavigationBar @change-done="change"></NavigationBar>
       </div>
       <el-container>
         <!--  侧边    -->
@@ -18,11 +18,12 @@
         </el-aside>
         <!--  中间    -->
         <el-main>
-          <!-- <apiMangerTest  :testArr="testArr"></apiMangerTest>   原注释位置-->
-          <apiMangerTest :testArr="testArr"></apiMangerTest>
+          <apiMangerTest :testArr="testArr" v-if="isTest"></apiMangerTest>
           <apiMangerMain
-            :testArr="testArr"
-            @upData="handleData"
+              v-if="isMain"
+
+              :testArr="testArr"
+              @upData="handleData"
           ></apiMangerMain>
         </el-main>
       </el-container>
@@ -55,8 +56,8 @@ export default {
     return {
       isShow: false,
       sin_in: true,
-      // isShow: true,
-      // sin_in: false,
+      isTest: false,
+      isMain: true,
       //接口信息
       testArr: [],
     };
@@ -72,7 +73,7 @@ export default {
   methods: {
     updateDone(newDone) {
       console.log(
-        "\n" +
+          "\n" +
           "   ____   __   __  _____  U _____ u ____       _      _   _      ____ U _____ u \n" +
           'U | __")u \\ \\ / / |_ " _| \\| ___"|/|  _"\\  U  /"\\  u | \\ |"|  U /"___|\\| ___"|/ \n' +
           ' \\|  _ \\/  \\ V /    | |    |  _|" /| | | |  \\/ _ \\/ <|  \\| |> \\| | u   |  _|"   \n' +
@@ -82,7 +83,7 @@ export default {
           '(__) (__)\\_) (__)(__) (__)(__) (__)(__)_)  (__)  (__)(_")  (_/(__)(__)(__) (__) \n'
       );
       console.log(
-        "\n" +
+          "\n" +
           " __        __     _                                _           _                _        \n" +
           " \\ \\      / /___ | |  ___  ___   _ __ ___    ___  | |_  ___   | |  ___    __ _ (_) _ __  \n" +
           "  \\ \\ /\\ / // _ \\| | / __|/ _ \\ | '_ ` _ \\  / _ \\ | __|/ _ \\  | | / _ \\  / _` || || '_ \\ \n" +
@@ -124,6 +125,22 @@ export default {
       // 发送请求
       xhr.send();
     },
+    out(newDone) {
+      this.isShow = newDone;
+      this.sin_in = true;
+      console.log("返回登录界面")
+    },
+    change(newDone){
+      if(newDone===false){
+        this.isMain=false;
+        this.isTest=true;
+      }
+      else{
+        this.isMain=true;
+        this.isTest=false;
+      }
+    },
+
     // 更新arr数据
     handleData() {
       const xhr = new XMLHttpRequest();
@@ -157,11 +174,11 @@ export default {
   created() {
     // 1. 在挂载生命周期中，需要对testArr从端口获取数据，使用computed包裹
     Bus.$on("uploadForm", (formData) => {
-      const copiedForm = { ...formData }; // 使用展开运算符创建一个新的对象副本
+      const copiedForm = {...formData}; // 使用展开运算符创建一个新的对象副本
 
       // 使用find方法获取匹配到的对象， 根据Id标识
       const existingItem = this.testArr.find(
-        (item) => item.id === copiedForm.id
+          (item) => item.id === copiedForm.id
       );
       if (existingItem) {
         // 如果找到对应的元素，进行覆盖（浅拷贝 适用于一级属性无引用类型）

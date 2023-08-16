@@ -81,7 +81,7 @@ float: right;
   background-color: #F8FBFE;
   border-radius: 8px;
   z-index: 1;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .tools {

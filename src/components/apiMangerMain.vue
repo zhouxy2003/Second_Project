@@ -291,7 +291,7 @@ export default {
   margin-top: 10px;
   border-radius: 5px;
   background-color: #f8fbfe;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .dataLi {

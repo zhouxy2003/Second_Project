@@ -15,10 +15,10 @@
        <el-button type="primary">
          admin<i class="el-icon-arrow-down el-icon--right"></i>
        </el-button>
-       <el-dropdown-menu slot="dropdown">
+       <el-dropdown-menu slot="dropdown" >
          <el-dropdown-item></el-dropdown-item>
          <el-dropdown-item>首页</el-dropdown-item>
-         <el-dropdown-item>退出登录 </el-dropdown-item>
+         <el-dropdown-item @click="out"><p @click="out">退出登录</p> </el-dropdown-item>
        </el-dropdown-menu>
      </el-dropdown>
    </div>
@@ -35,6 +35,10 @@
     methods: {
       handleClick() {
         alert('button click');
+      },
+      out(){
+        console.log("点击成功")
+        this.$emit("change-done", false);
       }
     }
   }

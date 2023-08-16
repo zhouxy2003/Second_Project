@@ -105,7 +105,23 @@ export default {
   z-index: 1;
   overflow: hidden;
   box-shadow: 10px 10px 20px #b9b9b9, -10px -10px 20px #ffffff;
+  /* 添加动画效果 */
+  animation: fadeIn 0.3s;
+  /* 移除过渡效果 */
+  transition: none;
+  /* 设置最终状态为完全显示 */
+  opacity: 1;
 }
+/* 定义动画效果 */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 
 .tools {
   display: flex;
@@ -143,7 +159,7 @@ export default {
   height: 60%;
   margin-left: 5%;
   margin-top: 5%;
-  overflow: scroll;
+  overflow: auto;
 
   box-shadow: 4px 4px 8px #b9b9b9, -4px -4px 8px skyblue;
 }
@@ -189,11 +205,13 @@ textarea:focus {
 
 .timeMess {
   width: 100%;
+  float: left;
   /* //border: 1px solid #000; height: 50%; */
 }
 
 .user_Mess {
   width: 100%;
+  float: left;
   /* //border: 1px solid #000; height: 50%; */
 }
 

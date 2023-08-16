@@ -3,33 +3,31 @@
     {
       "id": 1,
       "name": "演示1",
-      "portName": "/weather",
       "api": "https://apiTest1.cn",
-      "done": "false",
+      "done": "true",
       "method": "GET"
     },
     {
       "id": 2,
       "name": "演示2",
-      "portName": "/transport",
       "api": "https://apiTest2.cn",
-      "done": "true",
-      "method": "GET"
+      "done": "false",
+      "method": "GET",
+      "portName": "/transport"
     },
     {
       "id": 3,
       "name": "演示3",
-      "portName": "/BMI",
       "api": "https://apiTest3.cn",
-      "done": "true",
+      "done": "false",
       "method": "GET"
     },
     {
-      "id": 4,
-      "name": "ttt",
-      "api": "https://djaisj",
-      "done": "true",
-      "method": "GET"
+      "name": "演示4",
+      "api": "https://apple.com",
+      "done": "false",
+      "method": "GET",
+      "id": 4
     }
   ],
   "chatData": [
@@ -49,44 +47,135 @@
       "id": 3
     },
     {
-      "timeMessage": "2023/8/8/22:09:19",
-      "user_message": "周xy: 大家一起加油",
+      "timeMessage": "2023/8/15/19:37:31",
+      "user_message": "这次修改主要增加了接口信息同步和编辑信息同步\n",
       "id": 4
     },
     {
-      "timeMessage": "2023/8/8/23:22:14",
-      "user_message": "Work Hard\n",
+      "timeMessage": "2023/8/15/21:56:59",
+      "user_message": "修改了点击按钮切换界面\n",
       "id": 5
     },
     {
-      "timeMessage": "2023/8/11/15:41:47",
-      "user_message": "123",
+      "timeMessage": "2023/8/15/21:58:36",
+      "user_message": "修改了点击按钮切换界面\n",
       "id": 6
     },
     {
-      "timeMessage": "2023/8/11/15:42:19",
-      "user_message": "123",
+      "timeMessage": "2023/8/16/10:26:16",
+      "user_message": "完善接口界面",
       "id": 7
     },
     {
-      "timeMessage": "2023/8/11/15:45:49",
-      "user_message": "qwer",
+      "timeMessage": "2023/8/16/11:36:47",
+      "user_message": "增加了请求数据成功或者失败的提示\n",
       "id": 8
-    },
-    {
-      "timeMessage": "2023/8/11/15:46:24",
-      "user_message": "123456",
-      "id": 9
-    },
-    {
-      "timeMessage": "2023/8/11/15:46:32",
-      "user_message": "123",
-      "id": 10
-    },
-    {
-      "timeMessage": "2023/8/11/15:47:41",
-      "user_message": "我们要加油",
-      "id": 11
     }
-  ]
+  ],
+  "exchangeRate": {
+    "code": 1,
+    "msg": "数据返回成功！",
+    "data": [
+      {
+        "name": "USD/CNY",
+        "nameDesc": "美元/人民币",
+        "from": "USD",
+        "to": "CNY",
+        "price": "7.0542"
+      }
+    ]
+  },
+  "dailyWord": {
+    "code": 1,
+    "msg": "数据返回成功！",
+    "data": [
+      {
+        "content": "承君此诺，必守一生。",
+        "author": "锦重"
+      }
+    ]
+  },
+  "weather": {
+    "cityid": "101190401",
+    "city": "苏州",
+    "update_time": "19:59",
+    "wea": "晴",
+    "wea_img": "qing",
+    "tem": "22",
+    "tem_day": "28",
+    "tem_night": "15",
+    "win": "东南风",
+    "win_speed": "3级",
+    "win_meter": "15km/h",
+    "air": "101"
+  },
+  "wordVector": {
+    "code": "10000",
+    "charge": true,
+    "remain": 999,
+    "remainTimes": 999,
+    "remainSeconds": -1,
+    "msg": "查询成功,扣费",
+    "result": {
+      "code": "1000",
+      "msg": "Request OK!",
+      "result": {
+        "word": "你好",
+        "dimension": 300,
+        "vector": [
+          -0.162762,
+          -0.364332,
+          0.477487,
+          -0.093685,
+          -0.142185,
+          -0.045155,
+          -0.014236
+        ]
+      }
+    }
+  },
+  "BMI": {
+    "status": 0,
+    "msg": "ok",
+    "result": {
+      "bmi": 20.3,
+      "normbmi": "18.5～23.9",
+      "idealweight": 68,
+      "level": "正常范围",
+      "danger": "平均水平",
+      "status": 1
+    }
+  },
+  "bankCard": {
+    "log_id": 1447188951,
+    "result": {
+      "bank_card_number": "622500000000000",
+      "valid_date": "07/21",
+      "bank_name": "招商银行",
+      "bank_card_type": 1
+    }
+  },
+  "Wifi": {
+    "resultcode": "200",
+    "reason": "Return Successd!",
+    "result": {
+      "data": [
+        {
+          "name": "北京市法雨合",
+          "intro": "法雨合0层",
+          "address": "北京市朝阳区朝阳区三里屯",
+          "google_lat": "39.9372423",
+          "google_lon": "116.4480615",
+          "baidu_lat": "39.942952987502",
+          "baidu_lon": "116.45464108129",
+          "province": "北京市",
+          "city": "北京市"
+        }
+      ],
+      "pageinfo": {
+        "pnums": 20,
+        "current": 1
+      }
+    }
+  }
 }
