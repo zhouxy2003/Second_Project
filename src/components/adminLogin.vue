@@ -159,18 +159,26 @@ export default {
       sizeList: ["large", "medium", "small"],
       account: "",
       password: "",
-      user_name: "admin",
-      user_password: 1,
+      users: [
+        { username: "admin", password: 1 },
+        { username: "simpler", password: 1 },
+      ],
     };
   },
   methods: {
     showData() {
       //this.account===this.user_name&&this.password===this.user_password
-      if (
-        this.account === this.user_name &&
-        this.password === this.user_password
-      ) {
-        this.$emit("change-done", true);
+      // if (
+      //   this.account === this.user_name &&
+      //   this.password === this.user_password
+      // ) {
+      //   this.$emit("change-done", true, this.user_name);
+      //   console.log("欢迎登录");
+      // }
+
+      const user = this.users.find((user) => user.username === this.account);
+      if (user && user.password === this.password) {
+        this.$emit("change-done", true, user.username);
         console.log("欢迎登录");
       } else {
         this.$alert(

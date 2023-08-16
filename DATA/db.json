@@ -28,6 +28,20 @@
       "done": "false",
       "method": "GET",
       "id": 4
+    },
+    {
+      "name": "演示5",
+      "api": "https://apiTest4.cn",
+      "done": "true",
+      "method": "POST",
+      "id": 5
+    },
+    {
+      "name": "wulv",
+      "api": "www.wulv.com",
+      "done": "false",
+      "method": "GET",
+      "id": 6
     }
   ],
   "chatData": [

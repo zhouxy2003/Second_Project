@@ -5,7 +5,7 @@
     <el-container v-if="isShow">
       <!--  头部    -->
       <el-header>
-        <MyHeader @change-done="out"></MyHeader>
+        <MyHeader @change-done="out" :userName="userName"></MyHeader>
       </el-header>
       <!--  导航栏    -->
       <div class="Bar">
@@ -20,10 +20,10 @@
         <el-main>
           <apiMangerTest :testArr="testArr" v-if="isTest"></apiMangerTest>
           <apiMangerMain
-              v-if="isMain"
-
-              :testArr="testArr"
-              @upData="handleData"
+            v-if="isMain"
+            :testArr="testArr"
+            @upData="handleData"
+            :deleteFn="deleteFn"
           ></apiMangerMain>
         </el-main>
       </el-container>
@@ -60,6 +60,10 @@ export default {
       isMain: true,
       //接口信息
       testArr: [],
+
+      // 删除功能默认为true, 设置角色名
+      deleteFn: true,
+      userName: "",
     };
   },
   components: {
@@ -71,9 +75,9 @@ export default {
     apiMangerMain,
   },
   methods: {
-    updateDone(newDone) {
+    updateDone(newDone, userName) {
       console.log(
-          "\n" +
+        "\n" +
           "   ____   __   __  _____  U _____ u ____       _      _   _      ____ U _____ u \n" +
           'U | __")u \\ \\ / / |_ " _| \\| ___"|/|  _"\\  U  /"\\  u | \\ |"|  U /"___|\\| ___"|/ \n' +
           ' \\|  _ \\/  \\ V /    | |    |  _|" /| | | |  \\/ _ \\/ <|  \\| |> \\| | u   |  _|"   \n' +
@@ -83,7 +87,7 @@ export default {
           '(__) (__)\\_) (__)(__) (__)(__) (__)(__)_)  (__)  (__)(_")  (_/(__)(__)(__) (__) \n'
       );
       console.log(
-          "\n" +
+        "\n" +
           " __        __     _                                _           _                _        \n" +
           " \\ \\      / /___ | |  ___  ___   _ __ ___    ___  | |_  ___   | |  ___    __ _ (_) _ __  \n" +
           "  \\ \\ /\\ / // _ \\| | / __|/ _ \\ | '_ ` _ \\  / _ \\ | __|/ _ \\  | | / _ \\  / _` || || '_ \\ \n" +
@@ -91,6 +95,10 @@ export default {
           "    \\_/\\_/  \\___||_| \\___|\\___/ |_| |_| |_| \\___|  \\__|\\___/  |_| \\___/  \\__, ||_||_| |_|\n" +
           "                                                                         |___/           \n"
       );
+      this.userName = userName;
+      if (userName == "simpler") {
+        this.deleteFn = false;
+      }
 
       this.isShow = newDone;
       this.sin_in = false;
@@ -128,16 +136,15 @@ export default {
     out(newDone) {
       this.isShow = newDone;
       this.sin_in = true;
-      console.log("返回登录界面")
+      console.log("返回登录界面");
     },
-    change(newDone){
-      if(newDone===false){
-        this.isMain=false;
-        this.isTest=true;
-      }
-      else{
-        this.isMain=true;
-        this.isTest=false;
+    change(newDone) {
+      if (newDone === false) {
+        this.isMain = false;
+        this.isTest = true;
+      } else {
+        this.isMain = true;
+        this.isTest = false;
       }
     },
 
@@ -174,11 +181,11 @@ export default {
   created() {
     // 1. 在挂载生命周期中，需要对testArr从端口获取数据，使用computed包裹
     Bus.$on("uploadForm", (formData) => {
-      const copiedForm = {...formData}; // 使用展开运算符创建一个新的对象副本
+      const copiedForm = { ...formData }; // 使用展开运算符创建一个新的对象副本
 
       // 使用find方法获取匹配到的对象， 根据Id标识
       const existingItem = this.testArr.find(
-          (item) => item.id === copiedForm.id
+        (item) => item.id === copiedForm.id
       );
       if (existingItem) {
         // 如果找到对应的元素，进行覆盖（浅拷贝 适用于一级属性无引用类型）

@@ -69,6 +69,10 @@ export default {
       required: false,
       default: () => [],
     },
+    deleteFn: {
+      type: Boolean,
+      required: true,
+    },
   },
 
   name: "diaLog",
@@ -178,7 +182,7 @@ export default {
       this.$emit("clickDowned");
     },
 
-    // 确定按钮的可用与否 - 
+    // 确定按钮的可用与否 -
     startApiValidation() {
       if (this.apiValidationTimer) {
         clearTimeout(this.apiValidationTimer); // 清除之前的定时器

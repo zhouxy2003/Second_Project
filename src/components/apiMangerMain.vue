@@ -14,13 +14,14 @@
         <span class="Sp">⌨️API</span>
         <span class="Sp">❗Done</span>
         <span class="Sp">🕹️Method</span>
-        <button @click="openDialog">新增接口</button>
+        <button @click="openDialog" v-if="deleteFn">新增接口</button>
         <dia-log
           ref="diaLogRef"
           :testArr="testArr"
           :isEditMode="isEditMode"
           @clickDowned="handleClickDown"
           @child-event="handleChildEventArr"
+          :deleteFn="deleteFn"
         ></dia-log>
       </p>
     </div>
@@ -48,6 +49,7 @@
             size="small "
             :key="'delete-button-' + ta.name"
             @click="deleteArr(index)"
+            v-if="deleteFn"
             >删除
           </el-button>
         </li>
@@ -62,7 +64,7 @@ import chatWindow from "./MainUse/dialog/chatWindow.vue";
 
 export default {
   name: "apiMangerMain",
-  props: ["testArr"],
+  props: ["testArr", "deleteFn"],
   components: {
     diaLog,
     chatWindow,
