@@ -195,7 +195,7 @@ export default {
 .title {
   width: 100%;
   height: 50px;
-//border: 1px solid #000;
+
 }
 
 .deName {
@@ -214,7 +214,7 @@ export default {
   width: 100%;
   height: 60px;
   margin-top: 15px;
-//border: 1px solid #000;
+
 }
 
 .apiTip {
@@ -224,12 +224,12 @@ export default {
 }
 
 .inputData {
-  width: 600px;
+  width: 400px;
   float: left;
 }
 
 .pathData {
-  width: 600px;
+  width: 400px;
   float: left;
 }
 
@@ -250,7 +250,7 @@ export default {
   height: 60px;
   background-color: rgb(103, 194, 58);
   margin-top: 10px;
-//border: 1px solid #000;
+
 }
 
 .donePass p, .doneError p {
@@ -268,18 +268,18 @@ export default {
   height: 60px;
   background-color: rgb(245, 108, 108);
   margin-top: 10px;
-//border: 1px solid #000;
+
 }
 
 .portName {
-  width: 600px;
+  width: 400px;
 }
 
 .testBox {
   width: 100%;
   height: 400px;
   margin-top: 40px;
-//border: 1px solid #000;
+
 }
 
 .Header {
@@ -287,7 +287,7 @@ export default {
   height: 100%;
   float: left;
   border: none;
-//border: 1px solid #000;
+
 }
 
 .Header p {
@@ -309,7 +309,7 @@ export default {
 .top {
   width: 100%;
   height: 30px;
-//border: 1px solid #000;
+
 }
 
 .tools {
@@ -349,7 +349,7 @@ export default {
   height: 100%;
   float: left;
   border: none;
-//border: 1px solid #000;
+
 }
 
 .Main p {
@@ -362,7 +362,7 @@ export default {
   margin-left: 2%;
   margin-top: 10px;
   height: 300px;
-//border: 1px solid #000; overflow: auto; background-color: white;
+ overflow: auto; background-color: white;
 }
 
 textarea {

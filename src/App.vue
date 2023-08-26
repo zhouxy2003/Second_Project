@@ -109,7 +109,7 @@ export default {
       // 创建XHR对象
       const xhr = new XMLHttpRequest();
       // 设置请求方法和URL
-      xhr.open("GET", `http://127.0.0.1:3000/APIDATA`, true);
+      xhr.open("GET", `http://localhost:3000/APIDATA`, true);
 
       // 监听XHR对象的load事件
       xhr.onload = () => {
@@ -152,7 +152,7 @@ export default {
     handleData() {
       const xhr = new XMLHttpRequest();
       // 设置请求方法和URL
-      xhr.open("GET", `http://127.0.0.1:3000/APIDATA`, true);
+      xhr.open("GET", `http://localhost:3000/APIDATA`, true);
 
       // 监听XHR对象的load事件
       xhr.onload = () => {
