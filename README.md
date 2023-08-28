@@ -51,6 +51,20 @@ npm run build
 npm run lint
 ```
 
+#### 用户名和密码
+
+*管理员*
+
+  账户：`admin`
+
+  密码：`1`
+
+*用户* 
+
+  账户：`simpler`
+
+  密码：`1`
+
 ##### 自定义配置
 请参阅[配置参考](https://cli.vuejs.org/config/)。
 
