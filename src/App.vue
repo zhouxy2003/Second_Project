@@ -98,7 +98,10 @@ export default {
       this.userName = userName;
       if (userName == "simpler") {
         this.deleteFn = false;
+      } else {
+        this.deleteFn = true;
       }
+
 
       this.isShow = newDone;
       this.sin_in = false;
