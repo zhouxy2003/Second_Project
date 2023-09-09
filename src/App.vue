@@ -76,6 +76,7 @@ export default {
   },
   methods: {
     updateDone(newDone, userName) {
+      //输出标识
       console.log(
         "\n" +
           "   ____   __   __  _____  U _____ u ____       _      _   _      ____ U _____ u \n" +
@@ -95,6 +96,7 @@ export default {
           "    \\_/\\_/  \\___||_| \\___|\\___/ |_| |_| |_| \\___|  \\__|\\___/  |_| \\___/  \\__, ||_||_| |_|\n" +
           "                                                                         |___/           \n"
       );
+    
       this.userName = userName;
       if (userName == "simpler") {
         this.deleteFn = false;

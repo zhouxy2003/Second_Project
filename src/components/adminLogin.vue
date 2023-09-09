@@ -175,7 +175,7 @@ export default {
       //   this.$emit("change-done", true, this.user_name);
       //   console.log("欢迎登录");
       // }
-
+      //登录正确或者失误判断
       const user = this.users.find((user) => user.username === this.account);
       if (user && user.password === this.password) {
         this.$emit("change-done", true, user.username);
